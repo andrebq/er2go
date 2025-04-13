@@ -1,0 +1,1 @@
+ELIXIR_IMAGE=elixir:1.18.3-otp-27-alpine
