@@ -8,7 +8,7 @@ import (
 	"testing"
 	"unicode"
 
-	"gec/etr"
+	"github.com/andrebq/er2go/etr"
 )
 
 func TestRoundTrip(t *testing.T) {

@@ -1,11 +1,12 @@
 package etr_test
 
 import (
-	"gec/etr"
 	"os"
 	"path/filepath"
 	"reflect"
 	"testing"
+
+	"github.com/andrebq/er2go/etr"
 )
 
 func TestEtr(t *testing.T) {
