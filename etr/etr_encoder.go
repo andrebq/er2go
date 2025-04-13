@@ -135,7 +135,7 @@ func (e *etrWriter) mustEncodeEtr(value any) {
 		}
 		e.mustWriteNil()
 	case map[any]any:
-		e.mustWriteByte(116) // MAP_EXT
+		e.mustWriteByte(116)
 		e.mustWriteUint32(uint32(len(v)))
 		for key, val := range v {
 			e.mustEncodeEtr(key)
@@ -151,10 +151,10 @@ func (e *etrWriter) mustEncodeEtr(value any) {
 func (e *etrWriter) mustEncodeBigInt(value *big.Int) {
 	bytes := value.Bytes()
 	if len(bytes) <= 255 {
-		e.mustWriteByte(110) // SMALL_BIG_EXT
+		e.mustWriteByte(110)
 		e.mustWriteByte(byte(len(bytes)))
 	} else {
-		e.mustWriteByte(111) // LARGE_BIG_EXT
+		e.mustWriteByte(111)
 		e.mustWriteUint32(uint32(len(bytes)))
 	}
 	sign := byte(0)
