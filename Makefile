@@ -11,6 +11,6 @@ bench:
 
 regen-testdata:
 	docker run --rm \
-		-v $(shell pwd)/etr/testdata:/testdata \
+		-v $(shell pwd)/etf/testdata:/testdata \
 		-w /testdata $(ELIXIR_IMAGE) \
 		elixir /testdata/generate.exs

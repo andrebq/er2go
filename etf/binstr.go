@@ -1,4 +1,4 @@
-package etr
+package etf
 
 type (
 	Binstr string

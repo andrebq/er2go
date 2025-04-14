@@ -1,4 +1,4 @@
-package etr_test
+package etf_test
 
 import (
 	"os"
@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/andrebq/er2go/etr"
+	"github.com/andrebq/er2go/etf"
 )
 
 func TestEtr(t *testing.T) {
@@ -14,14 +14,14 @@ func TestEtr(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	term, err := etr.Decode(buf)
+	term, err := etf.Decode(buf)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	expected := etr.NewTuple(
-		etr.NewTuple(etr.NewAtom("tuple"), 42, 3.14),
-		map[any]any{etr.NewBinstr([]byte("key")): []byte("value"), etr.NewAtom("atom_key"): 123},
+	expected := etf.NewTuple(
+		etf.NewTuple(etf.NewAtom("tuple"), 42, 3.14),
+		map[any]any{etf.NewBinstr([]byte("key")): []byte("value"), etf.NewAtom("atom_key"): 123},
 		3.14,
 		42,
 		[]byte("hello"),

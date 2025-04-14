@@ -1,4 +1,4 @@
-package etr
+package etf_test
 
 import (
 	"bytes"
@@ -6,6 +6,8 @@ import (
 	"path/filepath"
 	"reflect"
 	"testing"
+
+	"github.com/andrebq/er2go/etf"
 )
 
 func TestEncodeDecodeRoundTrip(t *testing.T) {
@@ -14,19 +16,19 @@ func TestEncodeDecodeRoundTrip(t *testing.T) {
 		t.Fatalf("failed to read input file: %v", err)
 	}
 
-	decoder := NewDecoder(bytes.NewReader(inputData))
+	decoder := etf.NewDecoder(bytes.NewReader(inputData))
 	decodedValue, err := decoder.Decode()
 	if err != nil {
 		t.Fatalf("failed to decode input data: %v", err)
 	}
 
 	var outputBuffer bytes.Buffer
-	encoder := NewEncoder(&outputBuffer)
+	encoder := etf.NewEncoder(&outputBuffer)
 	if err := encoder.Encode(decodedValue); err != nil {
 		t.Fatalf("failed to encode value: %v", err)
 	}
 
-	decoder = NewDecoder(bytes.NewBuffer(outputBuffer.Bytes()))
+	decoder = etf.NewDecoder(bytes.NewBuffer(outputBuffer.Bytes()))
 	roundTripValue, err := decoder.Decode()
 	if err != nil {
 		t.Fatalf("failed to decode input data: %v", err)

@@ -1,4 +1,4 @@
-package etr_test
+package etf_test
 
 import (
 	"bytes"
@@ -8,7 +8,7 @@ import (
 	"testing"
 	"unicode"
 
-	"github.com/andrebq/er2go/etr"
+	"github.com/andrebq/er2go/etf"
 )
 
 func TestRoundTrip(t *testing.T) {
@@ -31,7 +31,7 @@ func TestRoundTrip(t *testing.T) {
 			}
 
 			// Decode the original data
-			decoder := etr.NewDecoder(bytes.NewReader(originalData))
+			decoder := etf.NewDecoder(bytes.NewReader(originalData))
 			decodedValue, err := decoder.Decode()
 			if err != nil {
 				t.Errorf("failed to decode file %q: %v", filePath, err)
@@ -40,7 +40,7 @@ func TestRoundTrip(t *testing.T) {
 
 			// Re-encode the decoded value
 			var buffer bytes.Buffer
-			encoder := etr.NewEncoder(&buffer)
+			encoder := etf.NewEncoder(&buffer)
 			if err := encoder.Encode(decodedValue); err != nil {
 				t.Errorf("failed to encode value from file %q: %v", filePath, err)
 				return

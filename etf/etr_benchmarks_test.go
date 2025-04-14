@@ -1,4 +1,4 @@
-package etr_test
+package etf_test
 
 import (
 	"bytes"
@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/andrebq/er2go/etr"
+	"github.com/andrebq/er2go/etf"
 )
 
 func prepareBenchmarkData(b *testing.B) any {
@@ -16,7 +16,7 @@ func prepareBenchmarkData(b *testing.B) any {
 		b.Fatalf("failed to read input file: %v", err)
 	}
 
-	decoder := etr.NewDecoder(bytes.NewReader(inputData))
+	decoder := etf.NewDecoder(bytes.NewReader(inputData))
 	decodedValue, err := decoder.Decode()
 	if err != nil {
 		b.Fatalf("failed to decode input data: %v", err)
@@ -31,7 +31,7 @@ func BenchmarkEncoding(b *testing.B) {
 	b.ResetTimer()
 	b.StartTimer()
 	for i := 0; i < b.N; i++ {
-		err := etr.NewEncoder(io.Discard).Encode(decodedValue)
+		err := etf.NewEncoder(io.Discard).Encode(decodedValue)
 		if err != nil {
 			b.Fatal(err)
 		}
@@ -45,7 +45,7 @@ func BenchmarkEncodingParallel(b *testing.B) {
 	b.StartTimer()
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
-			err := etr.NewEncoder(io.Discard).Encode(decodedValue)
+			err := etf.NewEncoder(io.Discard).Encode(decodedValue)
 			if err != nil {
 				b.Fatal(err)
 			}
@@ -66,7 +66,7 @@ func BenchmarkDecoding(b *testing.B) {
 		// avoiding new allocations since this is a serial test
 		// consistently saves few dozen nanoseconds on my machine.
 		br.Seek(0, io.SeekStart)
-		_, err := etr.NewDecoder(br).Decode()
+		_, err := etf.NewDecoder(br).Decode()
 		if err != nil {
 			b.Fatal(err)
 		}
@@ -85,7 +85,7 @@ func BenchmarkDecodingParallel(b *testing.B) {
 		br := bytes.NewReader(buf)
 		for p.Next() {
 			br.Seek(0, io.SeekStart)
-			_, err := etr.NewDecoder(br).Decode()
+			_, err := etf.NewDecoder(br).Decode()
 			if err != nil {
 				b.Fatal(err)
 			}
